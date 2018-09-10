@@ -1,9 +1,10 @@
-<app-card *ngFor="let user of data"
-          [img]="user.avatar_url"
-          [name]="user.login"
-          [linkGithub]="user.html_url"
-          (repositories)="clickViewRepositories($event)">
-</app-card>
-
-
-
+<div class="container">
+  <div class="row">
+    <app-card *ngFor="let user of data"
+              [img]="user.avatar_url"
+              [name]="user.login"
+              [linkGithub]="user.html_url"
+              (repositories)="clickViewRepositories($event)">
+    </app-card>
+  </div>
+</div>
