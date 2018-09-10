@@ -12,11 +12,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
            height="150px">
       <div class="card-body">
 
-        <h5 class="card-title">{{name}}</h5>
+        <h5 class="card-title">{{name | uppercase}}</h5>
 
         <p *ngIf="typeCard === 'repository'"
            class="card-text">
-          {{description}}
+          Description : {{description}}
         </p>
 
         <ul *ngIf="typeCard === 'repository'">

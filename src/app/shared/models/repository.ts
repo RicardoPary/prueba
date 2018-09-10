@@ -3,7 +3,7 @@ export class Repository {
 }
 
 export class RepositoryFilter {
-  size = 6;
+  size = 8;
   page = 1;
   repository: Repository = new Repository();
 }

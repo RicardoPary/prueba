@@ -4,7 +4,7 @@ export class User {
 }
 
 export class UserFilter {
-  size = 6;
+  size = 8;
   page = 1;
   user: User = new User();
 }

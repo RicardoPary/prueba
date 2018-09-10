@@ -22,7 +22,7 @@ import {orderData} from '../../shared/utils/card-util';
       </div>
     </div>
 
-    <button (click)="clickPagination()">Next {{ page}}</button>
+    <button (click)="clickPagination()">Next {{page}}</button>
   `,
   styles: []
 })
@@ -70,7 +70,7 @@ export class UsersComponent implements OnInit, OnDestroy {
   clickPagination() {
     this.page++;
     const filter = this.userService.getUserFilter();
-    filter.page = 20;
+    filter.page = this.page;
     this.userService.sendUserFilter(filter);
   }
 }
