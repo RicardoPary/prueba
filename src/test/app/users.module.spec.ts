@@ -1,4 +1,4 @@
-import { UsersModule } from './users.module';
+import { UsersModule } from '../../app/pages/users/users.module';
 
 describe('UsersModule', () => {
   let usersModule: UsersModule;

@@ -1,4 +1,4 @@
-import { RepositoriesModule } from './repositories.module';
+import { RepositoriesModule } from '../../app/pages/repositories/repositories.module';
 
 describe('RepositoriesModule', () => {
   let repositoriesModule: RepositoriesModule;
