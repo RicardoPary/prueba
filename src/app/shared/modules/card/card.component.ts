@@ -3,7 +3,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 @Component({
   selector: 'app-card',
   template: `
-    <div class="card" style="width: 18rem; min-height: 350px;">
+    <div class="card" style="width: 18rem; min-height: 350px; margin: 10px;">
       <img *ngIf="typeCard === 'user'"
            class="card-img-top"
            [src]="img"
