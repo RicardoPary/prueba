@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RepositoryService} from '../../shared/services/repository.service';
 import {RepositoryFilter} from '../../shared/models/repository';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
 import {Subscription, throwError} from 'rxjs';
 import {orderData} from '../../shared/utils/card-util';
@@ -10,7 +10,8 @@ import {UserService} from '../../shared/services/user.service';
 @Component({
   selector: 'app-repositories',
   template: `
-    <div class="container" [ngBusy]="{busy: subscriptionCard, message: 'Cargando...'}">
+    <button (click)="previus()">Previus</button>
+    <div class="container" [ngBusy]="{busy: subscriptionRepositories, message: 'Cargando...'}">
       <div class="row" *ngFor="let row of data">
         <div *ngFor="let repository of row" class="col-3">
           <app-card [typeCard]="'repository'"
@@ -34,7 +35,8 @@ import {UserService} from '../../shared/services/user.service';
 })
 export class RepositoriesComponent implements OnInit, OnDestroy {
 
-  subscriptionCard: Subscription;
+  subscriptionRepositories: Subscription;
+  subscriptionRepositoryService: Subscription;
   pageSize: number;
   page: number;
   total: number;
@@ -44,7 +46,8 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
 
   constructor(private repositoryService: RepositoryService,
               private route: ActivatedRoute,
-              private userService: UserService) {
+              private userService: UserService,
+              private router: Router) {
 
 
     /*this.routeData = this.route.data.subscribe((data) => {
@@ -54,7 +57,7 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
     });*/
 
 
-    this.repositoryService.currentRepositoryFilter().subscribe(
+    this.subscriptionRepositoryService = this.repositoryService.currentRepositoryFilter().subscribe(
       dates => {
         this.pageSize = dates.size;
         this.page = dates.page - 1;
@@ -68,14 +71,14 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptionCard.unsubscribe();
-    this.repositoryService.sendRepositoryFilter(new RepositoryFilter());
+    this.subscriptionRepositories.unsubscribe();
+    this.subscriptionRepositoryService.unsubscribe();
     this.userService.sendUser(null);
   }
 
   callService(repositoryFilter: RepositoryFilter) {
     repositoryFilter.repository.username = this.route.snapshot.params.username;
-    this.subscriptionCard = this.repositoryService.getAllRepositories(repositoryFilter)
+    this.subscriptionRepositories = this.repositoryService.getAllRepositories(repositoryFilter)
       .pipe(
         catchError(err => throwError(err))
       )
@@ -99,5 +102,9 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
     const filter = this.repositoryService.getRepositoryFilter();
     filter.page = event.newPage;
     this.repositoryService.sendRepositoryFilter(filter);
+  }
+
+  previus() {
+    this.router.navigate(['']);
   }
 }
