@@ -41,7 +41,6 @@ export class UsersComponent implements OnInit {
         catchError(err => throwError(err))
       )
       .subscribe(res => {
-        console.log(res);
         this.data = orderData(res.body, 4);
         /*this.totalData = res.body.respuesta.total;*/
       });
@@ -55,7 +54,6 @@ export class UsersComponent implements OnInit {
     this.page++;
     const filter = this.userService.getUserFilter();
     filter.page = 20;
-    console.log(this.page);
     this.userService.sendUserFilter(filter);
   }
 }

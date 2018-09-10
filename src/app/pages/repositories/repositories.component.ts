@@ -42,7 +42,6 @@ export class RepositoriesComponent implements OnInit {
         catchError(err => throwError(err))
       )
       .subscribe(res => {
-        console.log(res);
         this.data = orderData(res.body, 4);
         /*this.totalData = res.body.respuesta.total;*/
       });
@@ -52,7 +51,6 @@ export class RepositoriesComponent implements OnInit {
     this.page++;
     const filter = this.repositoryService.getRepositoryFilter();
     filter.page = 20;
-    console.log(this.page);
     this.repositoryService.sendRepositoryFilter(filter);
   }
 }
