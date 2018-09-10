@@ -47,4 +47,12 @@ export class RepositoriesComponent implements OnInit {
         /*this.totalData = res.body.respuesta.total;*/
       });
   }
+
+  clickPagination() {
+    this.page++;
+    const filter = this.repositoryService.getRepositoryFilter();
+    filter.page = 20;
+    console.log(this.page);
+    this.repositoryService.sendRepositoryFilter(filter);
+  }
 }
