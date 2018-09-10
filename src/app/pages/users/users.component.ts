@@ -4,6 +4,7 @@ import {UserFilter} from '../../shared/models/user';
 import {catchError} from 'rxjs/operators';
 import {Subscription, throwError} from 'rxjs';
 import {Router} from '@angular/router';
+import {orderData} from '../../shared/utils/card-util';
 
 @Component({
   selector: 'app-users',
@@ -41,26 +42,13 @@ export class UsersComponent implements OnInit {
       )
       .subscribe(res => {
         console.log(res);
-        this.data = this.orderData(res.body, 4);
+        this.data = orderData(res.body, 4);
         /*this.totalData = res.body.respuesta.total;*/
       });
   }
 
   clickViewRepositories(event) {
     this.router.navigate(['users/repositories', event.username]);
-  }
-
-  orderData(data: any, index) {
-    const order = [];
-    for (let i = 0; i < data.length; i++) {
-      if (i % index === 0) {
-        order.push([]);
-        order[order.length - 1].push(data[i]);
-      } else {
-        order[order.length - 1].push(data[i]);
-      }
-    }
-    return order;
   }
 
   clickPagination() {
@@ -70,5 +58,4 @@ export class UsersComponent implements OnInit {
     console.log(this.page);
     this.userService.sendUserFilter(filter);
   }
-
 }

@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {RepositoryService} from '../../shared/services/repository.service';
 import {RepositoryFilter} from '../../shared/models/repository';
 import {ActivatedRoute} from '@angular/router';
-import {UserFilter} from '../../shared/models/user';
 import {catchError} from 'rxjs/operators';
 import {Subscription, throwError} from 'rxjs';
+import {orderData} from '../../shared/utils/card-util';
 
 @Component({
   selector: 'app-repositories',
@@ -43,21 +43,8 @@ export class RepositoriesComponent implements OnInit {
       )
       .subscribe(res => {
         console.log(res);
-        this.data = this.orderData(res.body, 4);
+        this.data = orderData(res.body, 4);
         /*this.totalData = res.body.respuesta.total;*/
       });
-  }
-
-  orderData(data: any, index) {
-    const order = [];
-    for (let i = 0; i < data.length; i++) {
-      if (i % index === 0) {
-        order.push([]);
-        order[order.length - 1].push(data[i]);
-      } else {
-        order[order.length - 1].push(data[i]);
-      }
-    }
-    return order;
   }
 }
