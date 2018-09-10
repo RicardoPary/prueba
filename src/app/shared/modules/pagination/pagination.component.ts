@@ -6,7 +6,6 @@ import * as _ from 'underscore';
   template: `
     <div class="VDtable_footer">
       <div class="row">
-
         <div class="col-sm-12 d-flex justify-content-center mb-3 registration-text">
           <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li class="page-item">
@@ -49,9 +48,9 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Output() clickPagination = new EventEmitter<any>();
   @Input() total: number;
   @Input() page: number;
+  @Input() pageSize: number;
 
   listPerPage: number;
-  colFilterIndex = -1;
   pager: any = {};
 
   constructor() {
@@ -84,7 +83,6 @@ export class PaginationComponent implements OnInit, OnChanges {
   }
 
   updatePagination(page: number) {
-    this.colFilterIndex = -1;
     this.pager = this.getPager(this.total, page, this.listPerPage);
     this.clickPagination.emit({
       newPage: page

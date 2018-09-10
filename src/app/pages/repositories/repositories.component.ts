@@ -23,10 +23,10 @@ import {UserService} from '../../shared/services/user.service';
         </div>
       </div>
     </div>
-
     <app-pagination (clickPagination)="clickPagination($event)"
                     [total]="total"
-                    [page]="page">
+                    [page]="page"
+                    [pageSize]="pageSize">
     </app-pagination>
   `,
   styles: []
@@ -68,7 +68,7 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptionCard.unsubscribe();
-    this.repositoryService.sendRepositoryFilter(null);
+    this.repositoryService.sendRepositoryFilter(new RepositoryFilter());
   }
 
   callService(repositoryFilter: RepositoryFilter) {
