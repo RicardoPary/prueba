@@ -36,8 +36,16 @@ export class RepositoriesComponent implements OnInit {
   page: number;
   data: any = [];
 
+  routeData: any;
+
   constructor(private repositoryService: RepositoryService,
               private route: ActivatedRoute) {
+
+    this.routeData = this.route.data.subscribe((data) => {
+      console.log(data.pagingParams.page);
+      this.page = data.pagingParams.page;
+    });
+
 
     this.repositoryService.currentRepositoryFilter().subscribe(
       dates => {

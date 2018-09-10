@@ -20,9 +20,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
         </p>
 
         <ul *ngIf="typeCard === 'repository'">
-          <li>{{issues || 0}}</li>
-          <li>{{openIssues || 0}}</li>
-          <li>{{forks || 0}}</li>
+          <li>Issues : {{issues || 0}}</li>
+          <li>Open issues: {{openIssues || 0}}</li>
+          <li>Forks : {{forks || 0}}</li>
         </ul>
 
         <a [href]="linkGithub" target="_blank">link repository</a>
