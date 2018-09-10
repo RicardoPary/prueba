@@ -7,13 +7,14 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class CardComponent implements OnInit {
 
+  @Input() typeCard: any;
+
   @Input() img: any = '../../../../assets/images/user.png';
   @Input() name: any;
   @Input() linkGithub: any;
-  @Input() description: any;
   @Output() repositories = new EventEmitter<any>();
 
-
+  @Input() description: any;
   @Input() issues: any;
   @Input() openIssues: any;
   @Input() forks: any;

@@ -1,7 +1,8 @@
 <div class="container" [ngBusy]="{busy: subscriptionTable, message: 'Cargando...'}">
   <div class="row" *ngFor="let row of data">
     <div *ngFor="let user of row" class="col-3">
-      <app-card [img]="user.avatar_url"
+      <app-card [typeCard]="'user'"
+                [img]="user.avatar_url"
                 [name]="user.login"
                 [linkGithub]="user.html_url"
                 (repositories)="clickViewRepositories($event)">

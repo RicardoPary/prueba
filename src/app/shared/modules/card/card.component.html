@@ -1,17 +1,32 @@
-<div class="card" style="width: 18rem;">
-  <img class="card-img-top" [src]="img" alt="Card image cap" width="30px" height="150px">
+<div class="card" style="width: 18rem; min-height: 350px;">
+  <img *ngIf="typeCard === 'user'"
+       class="card-img-top"
+       [src]="img"
+       alt="Card image cap"
+       width="30px"
+       height="150px">
   <div class="card-body">
+
     <h5 class="card-title">{{name}}</h5>
-    <p class="card-text">
+
+    <p *ngIf="typeCard === 'repository'"
+       class="card-text">
       {{description}}
     </p>
 
-    <ul *ngIf="forks">
-      <li>{{issues}}</li>
-      <li>{{openIssues}}</li>
-      <li>{{forks}}</li>
+    <ul *ngIf="typeCard === 'repository'">
+      <li>{{issues || 0}}</li>
+      <li>{{openIssues|| 0}}</li>
+      <li>{{forks || 0}}</li>
     </ul>
-    <a [href]="linkGithub" class="btn btn-primary" target="_blank">View repositories</a>
-    <button class="btn" (click)="viewRepositories()">View repositories</button>
+
+    <a [href]="linkGithub"
+       class="btn btn-primary"
+       target="_blank">View repositories</a>
+
+    <button *ngIf="typeCard === 'user'"
+            class="btn"
+            (click)="viewRepositories()">View repositories
+    </button>
   </div>
 </div>
