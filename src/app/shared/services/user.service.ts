@@ -4,11 +4,13 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {UserFilter} from '../models/user';
 import {createRequestOption} from '../models/extras/request-util';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
   private urlResource = environment.endPoint + '/users';
   private userFilter = new BehaviorSubject<any>(new UserFilter());
+  private user = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) {
   }
@@ -25,8 +27,22 @@ export class UserService {
     return this.userFilter.getValue();
   }
 
+  sendUser(object: any) {
+    this.user.next(object);
+  }
+
   getUser(user: any): Observable<HttpResponse<any>> {
-    return this.http.get(`${this.urlResource}/${user}`, {observe: 'response'});
+    if (this.user.getValue()) {
+      return new Observable(observer => observer.next(this.user.getValue()));
+    }
+    return this.http.get(`${this.urlResource}/${user}`, {observe: 'response'}).pipe(
+      map(res => {
+        if (res) {
+          this.user.next(res);
+          return this.user.getValue();
+        }
+      })
+    );
   }
 
   getAllUsers(userFilter: UserFilter): Observable<HttpResponse<any>> {

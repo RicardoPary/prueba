@@ -70,6 +70,7 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptionCard.unsubscribe();
     this.repositoryService.sendRepositoryFilter(new RepositoryFilter());
+    this.userService.sendUser(null);
   }
 
   callService(repositoryFilter: RepositoryFilter) {
