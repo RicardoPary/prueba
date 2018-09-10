@@ -3,6 +3,7 @@ import {UserService} from '../../shared/services/user.service';
 import {UserFilter} from '../../shared/models/user';
 import {catchError} from 'rxjs/operators';
 import {Subscription, throwError} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -17,7 +18,8 @@ export class UsersComponent implements OnInit {
   page: number;
   data: any = [];
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private router: Router) {
 
     this.userService.currentUserFilter().subscribe(
       dates => {
@@ -45,7 +47,7 @@ export class UsersComponent implements OnInit {
   }
 
   clickViewRepositories(event) {
-    console.log(event);
+    this.router.navigate(['users/repositories', event.username]);
   }
 
   orderData(data: any, index) {

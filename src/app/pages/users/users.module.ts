@@ -7,11 +7,13 @@ import {UserService} from '../../shared/services/user.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CardModule} from '../../shared/modules/card/card.module';
 import {NgBusyModule} from 'ng-busy';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
+    RouterModule,
     UsersRoutingModule,
     CardModule,
     NgBusyModule

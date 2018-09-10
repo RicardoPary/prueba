@@ -20,6 +20,6 @@ export class CardComponent implements OnInit {
   }
 
   viewRepositories() {
-    this.repositories.emit();
+    this.repositories.emit({username: this.name});
   }
 }
