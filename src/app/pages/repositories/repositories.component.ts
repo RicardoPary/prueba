@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {catchError} from 'rxjs/operators';
 import {Subscription, throwError} from 'rxjs';
 import {orderData} from '../../shared/utils/card-util';
+import {UserService} from '../../shared/services/user.service';
 
 @Component({
   selector: 'app-repositories',
@@ -24,7 +25,7 @@ import {orderData} from '../../shared/utils/card-util';
     </div>
 
     <app-pagination (clickPagination)="clickPagination($event)"
-                    [total]="100"
+                    [total]="total"
                     [page]="page">
     </app-pagination>
   `,
@@ -35,12 +36,14 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
   subscriptionCard: Subscription;
   pageSize: number;
   page: number;
+  total: number;
   data: any = [];
 
   routeData: any;
 
   constructor(private repositoryService: RepositoryService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private userService: UserService) {
 
 
     /*this.routeData = this.route.data.subscribe((data) => {
@@ -65,6 +68,7 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptionCard.unsubscribe();
+    this.repositoryService.sendRepositoryFilter(null);
   }
 
   callService(repositoryFilter: RepositoryFilter) {
@@ -74,6 +78,7 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
         catchError(err => throwError(err))
       )
       .subscribe(res => {
+        this.userService.getUser(this.route.snapshot.params.username).subscribe(data => this.total = data.body.public_repos);
         this.data = orderData(res.body, 4);
       });
   }

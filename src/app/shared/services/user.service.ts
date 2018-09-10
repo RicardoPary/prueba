@@ -25,6 +25,10 @@ export class UserService {
     return this.userFilter.getValue();
   }
 
+  getUser(user: any): Observable<HttpResponse<any>> {
+    return this.http.get(`${this.urlResource}/${user}`, {observe: 'response'});
+  }
+
   getAllUsers(userFilter: UserFilter): Observable<HttpResponse<any>> {
     const params = createRequestOption({
       'page': userFilter.page,

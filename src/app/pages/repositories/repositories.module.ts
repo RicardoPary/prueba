@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {CardModule} from '../../shared/modules/card/card.module';
 import {NgBusyModule} from 'ng-busy';
 import {PaginationModule} from '../../shared/modules/pagination/pagination.module';
+import {UserService} from '../../shared/services/user.service';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {PaginationModule} from '../../shared/modules/pagination/pagination.modul
     RepositoriesComponent
   ],
   providers: [
-    RepositoryService
+    RepositoryService,
+    UserService
   ]
 })
 export class RepositoriesModule {
