@@ -2,8 +2,40 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  template: `
+    <div class="card" style="width: 18rem; min-height: 350px;">
+      <img *ngIf="typeCard === 'user'"
+           class="card-img-top"
+           [src]="img"
+           alt="Card image cap"
+           width="30px"
+           height="150px">
+      <div class="card-body">
+
+        <h5 class="card-title">{{name}}</h5>
+
+        <p *ngIf="typeCard === 'repository'"
+           class="card-text">
+          {{description}}
+        </p>
+
+        <ul *ngIf="typeCard === 'repository'">
+          <li>{{issues || 0}}</li>
+          <li>{{openIssues || 0}}</li>
+          <li>{{forks || 0}}</li>
+        </ul>
+
+        <a [href]="linkGithub" target="_blank">link repository</a>
+
+        <button *ngIf="typeCard === 'user'"
+                class="btn btn-primary"
+                (click)="viewRepositories()">View repositories
+        </button>
+      </div>
+    </div>
+
+  `,
+  styles: []
 })
 export class CardComponent implements OnInit {
 

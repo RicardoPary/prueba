@@ -8,8 +8,23 @@ import {orderData} from '../../shared/utils/card-util';
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  template: `
+    <div class="container" [ngBusy]="{busy: subscriptionTable, message: 'Cargando...'}">
+      <div class="row" *ngFor="let row of data">
+        <div *ngFor="let user of row" class="col-3">
+          <app-card [typeCard]="'user'"
+                    [img]="user.avatar_url"
+                    [name]="user.login"
+                    [linkGithub]="user.html_url"
+                    (repositories)="clickViewRepositories($event)">
+          </app-card>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="clickPagination()">Next {{ page}}</button>
+  `,
+  styles: []
 })
 export class UsersComponent implements OnInit {
 
