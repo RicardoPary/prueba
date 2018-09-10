@@ -5,7 +5,6 @@ import * as _ from 'underscore';
   selector: 'app-pagination',
   template: `
     <div class="VDtable_footer">
-      <p>es: {{total}}</p>
       <div class="row">
         <div class="col-sm-12 d-flex justify-content-center mb-3 registration-text">
           <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
