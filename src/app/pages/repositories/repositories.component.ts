@@ -24,11 +24,9 @@ import {orderData} from '../../shared/utils/card-util';
     </div>
 
     <app-pagination (clickPagination)="clickPagination($event)"
-                    [total]="100">
+                    [total]="100"
+                    [page]="page">
     </app-pagination>
-
-    <button (click)="clickPagination()">Next Repository {{ page}}</button>
-
   `,
   styles: []
 })
