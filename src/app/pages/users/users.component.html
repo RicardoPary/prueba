@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngBusy]="{busy: subscriptionTable, message: 'Cargando...'}">
   <div class="row" *ngFor="let row of data">
     <div *ngFor="let user of row" class="col-3">
       <app-card [img]="user.avatar_url"
@@ -9,3 +9,5 @@
     </div>
   </div>
 </div>
+
+<button (click)="clickPagination()">Next {{ page}}</button>

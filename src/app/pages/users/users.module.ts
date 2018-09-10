@@ -6,13 +6,15 @@ import {UsersComponent} from './users.component';
 import {UserService} from '../../shared/services/user.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CardModule} from '../../shared/modules/card/card.module';
+import {NgBusyModule} from 'ng-busy';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
     UsersRoutingModule,
-    CardModule
+    CardModule,
+    NgBusyModule
   ],
   declarations: [
     UsersComponent

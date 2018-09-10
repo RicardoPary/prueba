@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../shared/services/user.service';
 import {UserFilter} from '../../shared/models/user';
 import {catchError} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {Subscription, throwError} from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -11,9 +11,10 @@ import {throwError} from 'rxjs';
 })
 export class UsersComponent implements OnInit {
 
+  subscriptionTable: Subscription;
   totalData = 20;
-  pageSize = 10;
-  page = 1;
+  pageSize: number;
+  page: number;
   data: any = [];
 
   constructor(private userService: UserService) {
@@ -32,7 +33,7 @@ export class UsersComponent implements OnInit {
   }
 
   callService(userFilter: UserFilter) {
-    this.userService.getAllUsers(userFilter)
+    this.subscriptionTable = this.userService.getAllUsers(userFilter)
       .pipe(
         catchError(err => throwError(err))
       )
@@ -59,4 +60,13 @@ export class UsersComponent implements OnInit {
     }
     return order;
   }
+
+  clickPagination() {
+    this.page++;
+    const filter = this.userService.getUserFilter();
+    filter.page = 20;
+    console.log(this.page);
+    this.userService.sendUserFilter(filter);
+  }
+
 }
