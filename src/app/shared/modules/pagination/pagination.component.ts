@@ -6,11 +6,6 @@ import * as _ from 'underscore';
   template: `
     <div class="VDtable_footer">
       <div class="row">
-        <div class="col-sm-12" style="float: left;">
-         <span class="label label-default">
-         {{pager.currentPage}}
-         </span>
-        </div>
 
         <div class="col-sm-12 d-flex justify-content-center mb-3 registration-text">
           <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
@@ -51,31 +46,13 @@ import * as _ from 'underscore';
 })
 export class PaginationComponent implements OnInit, OnChanges {
 
-  @Input() typeCard: any;
-
-  @Input() img: any = '../../../../assets/images/user.png';
-  @Input() name: any;
-  @Input() linkGithub: any;
-  @Output() repositories = new EventEmitter<any>();
-
-  @Input() description: any;
-  @Input() issues: any;
-  @Input() openIssues: any;
-  @Input() forks: any;
-
   @Output() clickPagination = new EventEmitter<any>();
   @Input() total: number;
   @Input() page: number;
 
   listPerPage: number;
-  internalHeaders: any;
-  internalData: any;
-
   colFilterIndex = -1;
-  column = '';
-  isDesc = false;
   pager: any = {};
-  pagedItems: any[] = [];
 
   constructor() {
   }
@@ -83,29 +60,10 @@ export class PaginationComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  ngOnChanges(changes: any): void {
-    if (changes !== undefined && changes.filtersColumns !== undefined && changes.filtersColumns.currentValue && this.internalHeaders) {
-      /*this.internalHeaders.map(item => item.value = this.filtersColumns[item.name]);*/
-      this.internalHeaders.map(item => item.statusFilter = item.value !== '' ? true : false);
-    }
+  ngOnChanges(changes: any) {
 
     if (changes !== undefined && changes.page !== undefined) {
       this.pager = this.getPager(this.total, this.page + 1, this.listPerPage);
-    }
-
-    if (changes !== undefined && changes.headers !== undefined && changes.headers.currentValue) {
-      this.internalHeaders = changes.headers.currentValue;
-      /*if (this.filtersColumns) {
-        this.internalHeaders.map(item => item.value = this.filtersColumns[item.name]);
-        this.internalHeaders.map(item => item.statusFilter = item.value !== '' ? true : false);
-      }*/
-    }
-
-    if (changes !== undefined && changes.data !== undefined && changes.data.currentValue) {
-      this.internalData = changes.data.currentValue;
-      if (changes.data.currentValue instanceof Array) {
-        this.pagedItems = changes.data.currentValue;
-      }
     }
 
     if (changes !== undefined && changes.pageSize !== undefined && changes.pageSize.currentValue) {

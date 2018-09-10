@@ -43,12 +43,11 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) {
 
 
-    this.routeData = this.route.data.subscribe((data) => {
-      console.log('page', data.pagingParams.page);
+    /*this.routeData = this.route.data.subscribe((data) => {
       const repositoryFilter = new RepositoryFilter();
       repositoryFilter.page = data.pagingParams.page;
       this.callService(repositoryFilter);
-    });
+    });*/
 
 
     this.repositoryService.currentRepositoryFilter().subscribe(
