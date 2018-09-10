@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: '', redirectTo: 'users', pathMatch: 'full'},
+  {path: 'users', loadChildren: './pages/users/users.module#UsersModule'},
+  {path: 'repositories/:id', loadChildren: './pages/repositories/repositories.module#RepositoriesModule'}
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
