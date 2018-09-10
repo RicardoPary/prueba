@@ -43,4 +43,8 @@ export class UsersComponent implements OnInit {
         /*this.totalData = res.body.respuesta.total;*/
       });
   }
+
+  clickViewRepositories(event) {
+    console.log(event);
+  }
 }
