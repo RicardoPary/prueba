@@ -12,13 +12,14 @@ import {UserService} from '../../shared/services/user.service';
   template: `
     <div class="container" [ngBusy]="{busy: subscriptionCard, message: 'Cargando...'}">
       <div class="row" *ngFor="let row of data">
-        <div *ngFor="let user of row" class="col-3">
+        <div *ngFor="let repository of row" class="col-3">
           <app-card [typeCard]="'repository'"
-                    [name]="user.name"
-                    [linkGithub]="user.html_url"
-                    [description]="user.description"
-                    [openIssues]="user.open_issues"
-                    [forks]="user.forks">
+                    [name]="repository.name"
+                    [linkGithub]="repository.html_url"
+                    [description]="repository.description"
+                    [openIssues]="repository.open_issues"
+                    [forks]="repository.forks"
+                    [issues]="repository.totalIssues">
           </app-card>
         </div>
       </div>
@@ -79,8 +80,18 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
       )
       .subscribe(res => {
         this.userService.getUser(this.route.snapshot.params.username).subscribe(data => this.total = data.body.public_repos);
-        this.data = orderData(res.body, 4);
+        this.data = orderData(this.loadIssues(res.body), 4);
       });
+  }
+
+  loadIssues(data) {
+    data.map(
+      item => {
+        this.repositoryService.getAllIssues(this.route.snapshot.params.username, item.name).subscribe(
+          res => item.totalIssues = res.body.length);
+      }
+    );
+    return data;
   }
 
   clickPagination(event: any) {

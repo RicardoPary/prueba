@@ -33,6 +33,10 @@ export class RepositoryService {
     return this.http.get(`${this.urlResource}/${repositoryFilter.repository.username}/repos`, {params: params, observe: 'response'});
   }
 
+  getAllIssues(owner: any, repo: any): Observable<HttpResponse<any>> {
+    return this.http.get(`${environment.endPoint}/repos/${owner}/${repo}/issues`, {observe: 'response'});
+  }
+
   createRepository(body: any): Observable<HttpResponse<any>> {
     return this.http.post(`${this.urlResource}`, body, {observe: 'response'});
   }
