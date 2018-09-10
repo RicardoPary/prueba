@@ -7,6 +7,7 @@ import {RepositoryService} from '../../shared/services/repository.service';
 import {HttpClientModule} from '@angular/common/http';
 import {CardModule} from '../../shared/modules/card/card.module';
 import {NgBusyModule} from 'ng-busy';
+import {PaginationModule} from '../../shared/modules/pagination/pagination.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import {NgBusyModule} from 'ng-busy';
     HttpClientModule,
     RepositoriesRoutingModule,
     CardModule,
+    PaginationModule,
     NgBusyModule
   ],
   declarations: [

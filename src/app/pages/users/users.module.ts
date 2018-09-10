@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {CardModule} from '../../shared/modules/card/card.module';
 import {NgBusyModule} from 'ng-busy';
 import {RouterModule} from '@angular/router';
+import {PaginationModule} from '../../shared/modules/pagination/pagination.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import {RouterModule} from '@angular/router';
     RouterModule,
     UsersRoutingModule,
     CardModule,
+    PaginationModule,
     NgBusyModule
   ],
   declarations: [

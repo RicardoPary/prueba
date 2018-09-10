@@ -22,6 +22,10 @@ import {orderData} from '../../shared/utils/card-util';
       </div>
     </div>
 
+    <app-pagination (clickPagination)="clickPagination($event)"
+                    [total]="100">
+    </app-pagination>
+
     <button (click)="clickPagination()">Next {{page}}</button>
   `,
   styles: []
@@ -67,10 +71,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.router.navigate(['users/repositories', event.username]);
   }
 
-  clickPagination() {
-    this.page++;
+  clickPagination(event: any) {
     const filter = this.userService.getUserFilter();
-    filter.page = this.page;
+    filter.page = event.newPage;
     this.userService.sendUserFilter(filter);
   }
 }

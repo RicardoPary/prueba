@@ -23,6 +23,10 @@ import {orderData} from '../../shared/utils/card-util';
       </div>
     </div>
 
+    <app-pagination (clickPagination)="clickPagination($event)"
+                    [total]="100">
+    </app-pagination>
+
     <button (click)="clickPagination()">Next Repository {{ page}}</button>
 
   `,
@@ -77,10 +81,9 @@ export class RepositoriesComponent implements OnInit, OnDestroy {
       });
   }
 
-  clickPagination() {
-    this.page++;
+  clickPagination(event: any) {
     const filter = this.repositoryService.getRepositoryFilter();
-    filter.page = 20;
+    filter.page = event.newPage;
     this.repositoryService.sendRepositoryFilter(filter);
   }
 }
