@@ -29,7 +29,6 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   callService(userFilter: UserFilter) {
@@ -39,12 +38,25 @@ export class UsersComponent implements OnInit {
       )
       .subscribe(res => {
         console.log(res);
-        this.data = res.body;
+        this.data = this.orderData(res.body, 4);
         /*this.totalData = res.body.respuesta.total;*/
       });
   }
 
   clickViewRepositories(event) {
     console.log(event);
+  }
+
+  orderData(data: any, index) {
+    const order = [];
+    for (let i = 0; i < data.length; i++) {
+      if (i % index === 0) {
+        order.push([]);
+        order[order.length - 1].push(data[i]);
+      } else {
+        order[order.length - 1].push(data[i]);
+      }
+    }
+    return order;
   }
 }
