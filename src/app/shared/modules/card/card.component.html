@@ -20,12 +20,10 @@
       <li>{{forks || 0}}</li>
     </ul>
 
-    <a [href]="linkGithub"
-       class="btn btn-primary"
-       target="_blank">View repositories</a>
+    <a [href]="linkGithub" target="_blank">link repository</a>
 
     <button *ngIf="typeCard === 'user'"
-            class="btn"
+            class="btn btn-primary"
             (click)="viewRepositories()">View repositories
     </button>
   </div>
