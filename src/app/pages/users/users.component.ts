@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../shared/services/user.service';
 import {UserFilter} from '../../shared/models/user';
 import {catchError} from 'rxjs/operators';
@@ -9,7 +9,7 @@ import {orderData} from '../../shared/utils/card-util';
 @Component({
   selector: 'app-users',
   template: `
-    <div class="container" [ngBusy]="{busy: subscriptionTable, message: 'Cargando...'}">
+    <div class="container" [ngBusy]="{busy: subscriptionCard, message: 'Cargando...'}">
       <div class="row" *ngFor="let row of data">
         <div *ngFor="let user of row" class="col-3">
           <app-card [typeCard]="'user'"
@@ -26,10 +26,9 @@ import {orderData} from '../../shared/utils/card-util';
   `,
   styles: []
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
-  subscriptionTable: Subscription;
-  totalData = 20;
+  subscriptionCard: Subscription;
   pageSize: number;
   page: number;
   data: any = [];
@@ -50,14 +49,17 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.subscriptionCard.unsubscribe();
+  }
+
   callService(userFilter: UserFilter) {
-    this.subscriptionTable = this.userService.getAllUsers(userFilter)
+    this.subscriptionCard = this.userService.getAllUsers(userFilter)
       .pipe(
         catchError(err => throwError(err))
       )
       .subscribe(res => {
         this.data = orderData(res.body, 4);
-        /*this.totalData = res.body.respuesta.total;*/
       });
   }
 

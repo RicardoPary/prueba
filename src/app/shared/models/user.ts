@@ -6,5 +6,5 @@ export class User {
 export class UserFilter {
   size = 6;
   page = 1;
-  field: User = new User();
+  user: User = new User();
 }

@@ -9,7 +9,7 @@ export class RepositoriesResolvePagingParams implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
 
-    console.log(route.queryParams['page']);
+    console.log(route.queryParams['username']);
 
     const page = route.queryParams['page'] ? route.queryParams['page'] : '1';
     return {

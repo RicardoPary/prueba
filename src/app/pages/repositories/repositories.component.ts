@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {RepositoryService} from '../../shared/services/repository.service';
 import {RepositoryFilter} from '../../shared/models/repository';
 import {ActivatedRoute} from '@angular/router';
@@ -9,7 +9,7 @@ import {orderData} from '../../shared/utils/card-util';
 @Component({
   selector: 'app-repositories',
   template: `
-    <div class="container" [ngBusy]="{busy: subscriptionTable, message: 'Cargando...'}">
+    <div class="container" [ngBusy]="{busy: subscriptionCard, message: 'Cargando...'}">
       <div class="row" *ngFor="let row of data">
         <div *ngFor="let user of row" class="col-3">
           <app-card [typeCard]="'repository'"
@@ -28,10 +28,9 @@ import {orderData} from '../../shared/utils/card-util';
   `,
   styles: []
 })
-export class RepositoriesComponent implements OnInit {
+export class RepositoriesComponent implements OnInit, OnDestroy {
 
-  subscriptionTable: Subscription;
-  totalData = 20;
+  subscriptionCard: Subscription;
   pageSize: number;
   page: number;
   data: any = [];
@@ -63,15 +62,18 @@ export class RepositoriesComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    this.subscriptionCard.unsubscribe();
+  }
+
   callService(repositoryFilter: RepositoryFilter) {
     repositoryFilter.repository.username = this.route.snapshot.params.username;
-    this.subscriptionTable = this.repositoryService.getAllRepositories(repositoryFilter)
+    this.subscriptionCard = this.repositoryService.getAllRepositories(repositoryFilter)
       .pipe(
         catchError(err => throwError(err))
       )
       .subscribe(res => {
         this.data = orderData(res.body, 4);
-        /*this.totalData = res.body.respuesta.total;*/
       });
   }
 
