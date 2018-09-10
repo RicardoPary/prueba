@@ -23,7 +23,6 @@ import {orderData} from '../../shared/utils/card-util';
     </div>
 
     <app-pagination (clickPagination)="clickPagination($event)"
-                    [total]="100"
                     [page]="page"
                     [pageSize]="pageSize">
     </app-pagination>

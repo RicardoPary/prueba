@@ -5,6 +5,7 @@ import * as _ from 'underscore';
   selector: 'app-pagination',
   template: `
     <div class="VDtable_footer">
+      <p>es: {{total}}</p>
       <div class="row">
         <div class="col-sm-12 d-flex justify-content-center mb-3 registration-text">
           <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
@@ -29,7 +30,7 @@ import * as _ from 'underscore';
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
               </button>
             </li>
-            <li class="page-item">
+            <li class="page-item" [hidden]="!total">
               <button [disabled]="pager.currentPage >= pager.totalPages" (click)="updatePagination(pager.totalPages)"
                       style="background: none; border: none;">
                 <i class="fa fa-angle-double-right" aria-hidden="true"></i>
@@ -89,7 +90,7 @@ export class PaginationComponent implements OnInit, OnChanges {
     });
   }
 
-  getPager(totalItems: number, currentPage: number = 1, pageSize: number = 11) {
+  getPager(totalItems: number, currentPage: number = 1, pageSize: number = 8) {
     const totalPages = Math.ceil(totalItems / pageSize);
     let startPage: number, endPage: number;
     if (totalPages <= 10) {
